@@ -4,7 +4,7 @@
 - TEAM: Amaranta Shop — Group 2
 - DOCS_REPO: https://github.com/code-corhuila/amaranta-shop-docs
 - REFLECTION_DOC: PENDING — add the Google Docs URL before the CP0 push
-- JOURNEY: PENDING — defined in CP1
+- JOURNEY: Admin product stock update through API Gateway
 <!-- CONFIG-END -->
 
 # Week 11 — Observability Workshop
