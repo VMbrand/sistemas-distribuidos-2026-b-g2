@@ -8,25 +8,27 @@
 - FULL_NAME: Victor Manuel Brand Cepeda
 - GITHUB_USER: VMbrand
 - TEAM: Amaranta Shop — Group 2
-- SPRINT_GOAL: Define and validate observability for the API Gateway catalog stock-update journey.
+- SPRINT_GOAL: Complete the API Gateway observability plan for the catalog stock-update journey.
 <!-- CONFIG-END -->
 
 ## 1. User stories worked this week
 | HU ID | Title | Status (todo/doing/done) | Evidence (PR or commit URL) |
 |---|---|---|---|
 | HU-W11-001 | Observe catalog stock update through API Gateway | done | [Workshop delivery 1 history](https://github.com/VMbrand/sistemas-distribuidos-2026-b-g2/commits/hu-vmbrand-w11-dev) |
+| HU-W11-002 | Define SLOs, alerting, runbook and incident drill | done | See CP6–CP10 evidence in `11-week/workshop` |
 
 ## 2. My individual contribution
 - Defined a W3C trace map from Catalog Portal through API Gateway and Catalog API to the Product aggregate.
 - Implemented and tested a small NGINX/njs-compatible gateway trace-context and metrics spike in `11-week/workshop/03-instrumentation`.
 - Defined structured logs and golden-signal metrics for the admin product-stock route.
+- Defined SLOs, availability burn-rate alerts, a route-specific runbook and a blameless latency incident drill.
 
 ## 3. Blockers and risks
-- The official Gateway currently uses correlation IDs and JSON access logs but does not expose Prometheus metrics.
+- The official Gateway currently uses correlation IDs and JSON access logs but does not expose Prometheus metrics; the workshop artifacts are an implementation plan, not a merged production deployment.
 - The reflection document is linked from `11-week/workshop/README.md`.
 
 ## 4. Plan for next week
-- Review the njs integration in the official Gateway repository and continue CP6 with SLOs and error budgets.
+- Propose the trace-context, metrics and latency-alert work as reviewed Gateway backlog items.
 
 ## 5. Compliance self-check
 - [x] Conventional Commits - `type(scope): summary`
@@ -42,3 +44,7 @@
 - [CP2 log contract](https://github.com/VMbrand/sistemas-distribuidos-2026-b-g2/commit/c43b9dc698e095d0f2ba8ffa0c13a28db035bf40)
 - [CP3 instrumentation](https://github.com/VMbrand/sistemas-distribuidos-2026-b-g2/commit/a202ebe917b6806aba6008959bbf9d39f945ecb4)
 - [CP4 metrics](https://github.com/VMbrand/sistemas-distribuidos-2026-b-g2/commit/c664ccacf53b979dac1f1a4ac54f639734cfc2fb)
+- `11-week/workshop/05-slo.md`
+- `11-week/workshop/06-alerts.yml` and `06-alert-policy.md`
+- `11-week/workshop/07-runbook.md`
+- `11-week/workshop/08-incident.md`
