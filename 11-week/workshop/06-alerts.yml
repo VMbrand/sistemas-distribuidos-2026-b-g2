@@ -1,0 +1,31 @@
+groups:
+  - name: amaranta-gateway-catalog-slo
+    rules:
+      - alert: GatewayCatalogAvailabilityFastBurn
+        expr: |
+          (
+            sum(rate(gateway_http_requests_total{route="catalog_admin_stock",outcome=~"timeout|server_error"}[1h]))
+            /
+            sum(rate(gateway_http_requests_total{route="catalog_admin_stock",outcome=~"success|rejected|timeout|server_error"}[1h]))
+          ) > (14.4 * 0.005)
+        for: 5m
+        labels:
+          severity: page
+          team: amaranta-shop
+        annotations:
+          summary: "API Gateway catalog availability fast burn"
+          runbook_url: "11-week/workshop/07-runbook.md"
+      - alert: GatewayCatalogAvailabilitySlowBurn
+        expr: |
+          (
+            sum(rate(gateway_http_requests_total{route="catalog_admin_stock",outcome=~"timeout|server_error"}[6h]))
+            /
+            sum(rate(gateway_http_requests_total{route="catalog_admin_stock",outcome=~"success|rejected|timeout|server_error"}[6h]))
+          ) > (6 * 0.005)
+        for: 30m
+        labels:
+          severity: ticket
+          team: amaranta-shop
+        annotations:
+          summary: "API Gateway catalog availability slow burn"
+          runbook_url: "11-week/workshop/07-runbook.md"
