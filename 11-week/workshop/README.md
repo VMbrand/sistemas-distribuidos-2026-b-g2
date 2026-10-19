@@ -3,7 +3,7 @@
 - GITHUB_USER: VMbrand
 - TEAM: Amaranta Shop — Group 2
 - DOCS_REPO: https://github.com/code-corhuila/amaranta-shop-docs
-- REFLECTION_DOC: PENDING — add the Google Docs URL before the CP0 push
+- REFLECTION_DOC: https://docs.google.com/document/d/1PzWh5RS7Rlw0_yVaFqh4KjGnajk5NrIPQgik2vrdDNE/edit?hl=es&tab=t.0
 - JOURNEY: Admin product stock update through API Gateway
 <!-- CONFIG-END -->
 

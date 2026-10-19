@@ -23,7 +23,7 @@
 
 ## 3. Blockers and risks
 - The official Gateway currently uses correlation IDs and JSON access logs but does not expose Prometheus metrics.
-- The reflection document URL must be added before Moodle submission.
+- The reflection document is linked from `11-week/workshop/README.md`.
 
 ## 4. Plan for next week
 - Review the njs integration in the official Gateway repository and continue CP6 with SLOs and error budgets.
