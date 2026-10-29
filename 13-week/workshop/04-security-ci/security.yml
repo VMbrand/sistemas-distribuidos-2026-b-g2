@@ -1,0 +1,53 @@
+name: Amaranta security proposal
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  secret-scan:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gitleaks/gitleaks-action@v2
+
+  catalog-dependency-audit:
+    name: Catalog dependency audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: code-corhuila/amaranta-shop-catalog-api
+          ref: develop
+          path: catalog-api
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the Catalog dependency set
+        run: python -m pip install ./catalog-api
+      - name: Audit installed Python dependencies
+        run: |
+          python -m pip install pip-audit
+          pip-audit --strict
+
+  gateway-negative-authorization:
+    name: Gateway blocks Catalog internal stock route
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: code-corhuila/amaranta-shop-api-gateway
+          ref: develop
+          path: gateway
+          fetch-depth: 0
+      - name: Use the reviewed Gateway revision
+        run: git -C gateway checkout ebbe265
+      - name: Run the negative route regression
+        env:
+          GATEWAY_DIR: ${{ github.workspace }}/gateway
+        run: sh 13-week/workshop/04-security-ci/test-catalog-internal-route.sh

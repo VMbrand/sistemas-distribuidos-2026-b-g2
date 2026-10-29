@@ -1,5 +1,18 @@
 # Week 13 security workshop
 
+<!-- CONFIG-START -->
+- FULL_NAME: Victor Manuel Brand Cepeda
+- GITHUB_USER: VMbrand
+- TEAM: Amaranta Shop - Group 2
+- DOCS_REPO: https://github.com/code-corhuila/amaranta-shop-docs
+- BOUNDARY: Browser/Internet -> API Gateway public edge
+- CLAIM_ISSUE: https://github.com/code-corhuila/amaranta-shop-docs/issues/29
+- STORIES: https://github.com/code-corhuila/amaranta-shop-docs/issues/31, https://github.com/code-corhuila/amaranta-shop-docs/issues/32, https://github.com/code-corhuila/amaranta-shop-docs/issues/33
+- REFLECTION_DOC:
+- LIBRARY_BOOK:
+- LIBRARY_RECORD_TIME:
+<!-- CONFIG-END -->
+
 This individual technical contribution applies the week 13 security material to the
 Amaranta Shop distributed system. It does not claim that the system is production
 secure. It maps the real trust boundaries, turns the highest risks into testable
@@ -8,12 +21,17 @@ fork.
 
 ## Contents
 
-1. 01-threat-model.md maps the data flow, trust boundaries and STRIDE findings.
-2. 02-security-backlog.md prioritizes the findings and gives each one a testable
+1. 01-attack-surface.md maps the real data flow, trust boundaries, assets, and entry points.
+2. 01-threat-model.md is the earlier technical analysis that informed the team-docs PR.
+3. 02-security-backlog.md prioritizes the findings and gives each one a testable
    acceptance criterion.
-3. 03-security-gates.md explains the checks run by the CI workflow.
-4. scripts/verify-gateway-security.sh runs the official Gateway security suite
+4. 03-security-gates.md explains the checks run by the CI workflow.
+5. scripts/verify-gateway-security.sh runs the official Gateway security suite
    against a checked-out Gateway repository.
+
+The author must complete the reflection and the physical-library fields above
+from genuine personal evidence. They are intentionally not inferred from online
+material or replaced with a generic citation.
 
 ## Local verification
 
