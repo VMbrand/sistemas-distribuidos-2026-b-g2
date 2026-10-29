@@ -5,7 +5,7 @@
 - GITHUB_USER: VMbrand
 - TEAM: Amaranta Shop - Group 2
 - DOCS_REPO: https://github.com/code-corhuila/amaranta-shop-docs
-- BOUNDARY: Browser/Internet -> API Gateway public edge
+- BOUNDARY: Gateway and Sales APIs -> Catalog API inbound interface
 - CLAIM_ISSUE: https://github.com/code-corhuila/amaranta-shop-docs/issues/29
 - STORIES: https://github.com/code-corhuila/amaranta-shop-docs/issues/31, https://github.com/code-corhuila/amaranta-shop-docs/issues/32, https://github.com/code-corhuila/amaranta-shop-docs/issues/33
 - REFLECTION_DOC:
