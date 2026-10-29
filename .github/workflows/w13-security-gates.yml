@@ -1,0 +1,41 @@
+name: Week 13 security gates
+
+on:
+  pull_request:
+    paths:
+      - '13-week/**'
+      - '.github/workflows/w13-security-gates.yml'
+  push:
+    branches:
+      - hu-vmbrand-w13-dev
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  no-versioned-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject tracked environment files and key material
+        run: |
+          if git ls-files | grep -E '(^|/)[^/]*\.env$|\.pem$|(^|/)keys/'; then
+            echo "A real environment file or key material is tracked"
+            exit 1
+          fi
+
+  gateway-public-edge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check out the verified Gateway security contract
+        uses: actions/checkout@v4
+        with:
+          repository: code-corhuila/amaranta-shop-api-gateway
+          ref: ebbe265
+          path: gateway
+      - name: Run the Gateway-owned security suite
+        env:
+          GATEWAY_DIR: ${{ github.workspace }}/gateway
+        run: sh 13-week/workshop/scripts/verify-gateway-security.sh
