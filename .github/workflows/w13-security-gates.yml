@@ -33,8 +33,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: code-corhuila/amaranta-shop-api-gateway
-          ref: ebbe265
+          ref: develop
           path: gateway
+          fetch-depth: 0
+      - name: Pin the verified Gateway revision
+        run: git -C gateway checkout ebbe265
       - name: Run the Gateway-owned security suite
         env:
           GATEWAY_DIR: ${{ github.workspace }}/gateway
