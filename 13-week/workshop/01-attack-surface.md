@@ -17,23 +17,22 @@ flowchart LR
 
     V -->|TB1 HTTPS, public browser traffic| F
     F -->|TB2 HTTPS /api/v1/*| G
-    G -->|TB2a public Catalog API| C
+    G -->|public products and admin products| C
     G -->|public checkout and protected orders| S
     G -->|protected saga routes| W
     V -. planned login / refresh .-> SEC
     SEC --> SP
     C --> M
     S --> P
-    S -->|TB2b internal Catalog stock API| C
+    S -->|TB3 internal reserve/release stock| C
     W -. planned service token + public key .-> SEC
     W -. planned orchestration .-> S
     W -. planned orchestration .-> C
 ```
 
-**Owned boundary:** TB2a and TB2b are the inbound Catalog API boundary split by
-direction: Gateway forwards the public and administrator product routes, while
-Sales calls the internal stock routes. TB1 is shown only to establish that a
-browser controls every public request before it reaches the platform.
+**Owned boundary:** TB2, from the browser/front application to the nginx public
+edge. TB1 is shown because a browser controls everything it sends to the Front;
+TB3 is shown because it is intentionally outside the public Gateway surface.
 
 ## Current scope versus planned components
 
@@ -59,16 +58,13 @@ this map. No external payment API belongs to the current v1 checkout scope.
 
 | Entry point | Caller | Authentication today | Boundary decision |
 |---|---|---|---|
-| `GET /api/v1/products*` | Gateway on behalf of a browser | None | Public Catalog read |
-| `/api/v1/admin/products*` | Gateway on behalf of an administrator | Gateway requires header; Catalog verifies JWT and `ADMIN` | Restricted Catalog mutation/read |
-| `POST /internal/products/reserve-stock` | Sales API | Network-only trust today | Internal all-or-nothing stock reservation |
-| `POST /internal/products/release-stock` | Sales API | Network-only trust today | Internal compensation of a prior reservation |
-| `GET /health` | Gateway or monitor | None | Catalog health only |
-
-The browser cannot call `/internal/products/*`: the Gateway must return `404`
-for direct, traversal, or encoded attempts. That protection is not equivalent to
-authenticating Sales to Catalog, which is why the internal route is a separate
-P0 concern in the STRIDE analysis.
+| `GET /api/v1/products*` | Browser | None | Public route to Catalog only |
+| `POST /api/v1/orders` | Browser visitor or customer | Optional; a malformed supplied token must fail in Sales | Public checkout route to Sales only |
+| `GET /api/v1/orders*` | Browser customer/staff | Gateway requires header; Sales verifies JWT | Protected route |
+| `/api/v1/admin/products*` | Browser administrator | Gateway requires header; Catalog verifies JWT and `ADMIN` | Protected route |
+| `/api/v1/sagas/*` | Browser staff, once Workflow exists | Gateway requires header; Workflow must verify JWT | Protected planned route |
+| `/internal/products/*` | Not a browser caller | Never published by the Gateway | Must return `404` at TB2 |
+| `GET /health` | Browser/monitor | None | Gateway health only |
 
 ## Boundary controls evidenced today
 
