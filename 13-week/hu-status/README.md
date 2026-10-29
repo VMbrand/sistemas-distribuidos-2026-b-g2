@@ -45,9 +45,9 @@
 - [x] No secrets; config via environment variables
 
 ## 6. Evidence links
-- [Week 13 workshop index](https://github.com/VMbrand/sistemas-distribuidos-2026-b-g2/tree/hu-vmbrand-w13-dev/13-week/workshop)
-- [Threat model](https://github.com/VMbrand/sistemas-distribuidos-2026-b-g2/blob/hu-vmbrand-w13-dev/13-week/workshop/01-threat-model.md)
-- [Security backlog](https://github.com/VMbrand/sistemas-distribuidos-2026-b-g2/blob/hu-vmbrand-w13-dev/13-week/workshop/02-security-backlog.md)
-- [Security gates](https://github.com/VMbrand/sistemas-distribuidos-2026-b-g2/blob/hu-vmbrand-w13-dev/13-week/workshop/03-security-gates.md)
+- [Week 13 workshop index](https://github.com/VMbrand/sistemas-distribuidos-2026-b-g2/tree/main/13-week/workshop)
+- [Threat model](https://github.com/VMbrand/sistemas-distribuidos-2026-b-g2/blob/main/13-week/workshop/01-threat-model.md)
+- [Security backlog](https://github.com/VMbrand/sistemas-distribuidos-2026-b-g2/blob/main/13-week/workshop/02-security-backlog.md)
+- [Security gates](https://github.com/VMbrand/sistemas-distribuidos-2026-b-g2/blob/main/13-week/workshop/03-security-gates.md)
 - [Amaranta Gateway security implementation](https://github.com/code-corhuila/amaranta-shop-api-gateway/tree/ebbe265)
 - [Amaranta cross-repository evidence](https://github.com/code-corhuila/amaranta-shop-docs/pull/23)
