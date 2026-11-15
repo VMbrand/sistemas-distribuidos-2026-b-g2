@@ -17,21 +17,21 @@
 | HU-W15-001 | Prevent client forgery of `X-Forwarded-For` at the Gateway edge | done | [Gateway PR #14](https://github.com/code-corhuila/amaranta-shop-api-gateway/pull/14) — merged to `develop` |
 | HU-W15-002 | Reapply the Gateway security correction to QA without merging permanent branches | done | [Gateway PR #15](https://github.com/code-corhuila/amaranta-shop-api-gateway/pull/15) — merged to `qa` |
 | HU-W15-003 | Align the C3 guide and verifier with the tracked Amaranta Compose topology | doing | [Amaranta PR #24](https://github.com/BrandowC/amaranta/pull/24) — review required before promotion |
-| HU-W15-004 | Persist `OrderCreated` atomically with Sales orders | doing | [Sales DB PR #6](https://github.com/code-corhuila/amaranta-shop-sales-db/pull/6) and [Sales API PR #7](https://github.com/code-corhuila/amaranta-shop-sales-api/pull/7) — awaiting review and environment promotion |
+| HU-W15-004 | Persist and publish `OrderCreated` through the Sales outbox | doing | [Sales DB PR #6](https://github.com/code-corhuila/amaranta-shop-sales-db/pull/6) and [Sales API PR #7](https://github.com/code-corhuila/amaranta-shop-sales-api/pull/7) — awaiting review and environment promotion |
 
 ## 2. My individual contribution
 - Created the isolated Gateway fix and promoted it with `cherry-pick -x` through `develop` and `qa`.
 - Verified that the client-supplied `X-Forwarded-For` value is not trusted by the Gateway regression suite.
 - Corrected the C3 guide and verifier to use the versioned NestJS Catalog service, its PostgreSQL dependency, and the root Compose file.
 - Implemented the Sales outbox migration, least-privilege grants, rollback chain and privilege assertions in Sales DB.
-- Implemented atomic `OrderCreated` persistence in Sales API, aligned it with the agreed event envelope, and added rollback/idempotency integration coverage.
-- Ran local `mvn -B verify`: 75 tests passed, with 8 PostgreSQL integration tests skipped because Docker Desktop is unavailable.
+- Implemented atomic `OrderCreated` persistence in Sales API, a RabbitMQ publisher with retryable state, the agreed event envelope, and rollback/idempotency integration coverage.
+- Ran local `mvn -B verify`: 151 test executions passed with zero failures/errors; 8 PostgreSQL integration tests were skipped because Docker Desktop is unavailable.
 
 ## 3. Blockers and risks
 - Amaranta PR #24 requires review before it can enter `develop`; its later QA and main promotions cannot be created yet.
 - The Gateway release PR #12 conflicts with a newer `main`; the current `main` already contains the forwarded-address behavior through a separate commit, but release evidence must be reconciled by the team.
-- Workflow, Worker, and Security are not implemented MVP3 services in the available repositories; this prevents a full Saga/Outbox claim.
-- Sales DB PR #6 must promote before Sales API PR #7 because the application expects the versioned `sales.outbox_event` table.
+- Workflow, Worker, and Security are not implemented MVP3 services in the available repositories; the unimplemented saga consumer path still blocks a complete distributed checkout claim.
+- Sales DB PR #6 must promote before Sales API PR #7 because the application expects the versioned `sales.outbox_messages` table.
 - GitHub Actions is billing-locked for the organization, so no CI job started; Docker-based rebuild, image and real-PostgreSQL checks need an available runner.
 
 ## 4. Plan for next week
