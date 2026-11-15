@@ -17,7 +17,7 @@
 | HU-W15-001 | Prevent client forgery of `X-Forwarded-For` at the Gateway edge | done | [Gateway PR #14](https://github.com/code-corhuila/amaranta-shop-api-gateway/pull/14) — merged to `develop` |
 | HU-W15-002 | Reapply the Gateway security correction to QA without merging permanent branches | done | [Gateway PR #15](https://github.com/code-corhuila/amaranta-shop-api-gateway/pull/15) — merged to `qa` |
 | HU-W15-003 | Align the C3 guide and verifier with the tracked Amaranta Compose topology | doing | [Amaranta PR #24](https://github.com/BrandowC/amaranta/pull/24) — review required before promotion |
-| HU-W15-004 | Persist and publish `OrderCreated` through the Sales outbox | doing | [Sales DB PR #6](https://github.com/code-corhuila/amaranta-shop-sales-db/pull/6) and [Sales API PR #7](https://github.com/code-corhuila/amaranta-shop-sales-api/pull/7) — awaiting review and environment promotion |
+| HU-W15-004 | Persist and publish `OrderCreated` through the Sales outbox | doing | [Sales DB #6](https://github.com/code-corhuila/amaranta-shop-sales-db/pull/6) and [Sales API #7](https://github.com/code-corhuila/amaranta-shop-sales-api/pull/7) merged to `develop`; their `qa` promotions are merged; [DB #8](https://github.com/code-corhuila/amaranta-shop-sales-db/pull/8) and [API #9](https://github.com/code-corhuila/amaranta-shop-sales-api/pull/9) await `main` review |
 | HU-W15-005 | Provide a broker runtime for Sales event delivery | doing | [infra PR #12](https://github.com/code-corhuila/amaranta-shop-infra-postgres/pull/12) merged to `develop`; [PR #13](https://github.com/code-corhuila/amaranta-shop-infra-postgres/pull/13) merged to `qa`; [PR #14](https://github.com/code-corhuila/amaranta-shop-infra-postgres/pull/14) awaits `main` approval |
 
 ## 2. My individual contribution
@@ -33,14 +33,14 @@
 - Amaranta PR #24 requires review before it can enter `develop`; its later QA and main promotions cannot be created yet.
 - The Gateway release PR #12 conflicts with a newer `main`; the current `main` already contains the forwarded-address behavior through a separate commit, but release evidence must be reconciled by the team.
 - Workflow, Worker, and Security are not implemented MVP3 services in the available repositories; the unimplemented saga consumer path still blocks a complete distributed checkout claim.
-- Sales DB PR #6 must promote before Sales API PR #7 because the application expects the versioned `sales.outbox_messages` table.
+- Sales DB PR #8 must enter `main` before Sales API PR #9 because the application expects the versioned `sales.outbox_messages` table.
 - Infrastructure PR #14 needs the configured `main` approval before running Sales API with `SALES_OUTBOX_PUBLISHER_ENABLED=true` in the release environment.
 - GitHub Actions is billing-locked for the organization, so no CI job started; Docker-based rebuild, image and real-PostgreSQL checks need an available runner.
 
 ## 4. Plan for next week
 - Obtain the required review of PR #24, promote it per environment, and freeze the final C3 release SHA only after reproducible validation.
 - Run and record the real Compose failure-path demonstration; do not claim load, chaos, alerting, or zero-downtime evidence until it has been executed.
-- Obtain review and promote infrastructure PR #12 and Sales DB PR #6, then Sales API PR #7, through `develop → qa → main`; only then cut or move the release tag.
+- Obtain `main` review for infrastructure PR #14, Sales DB PR #8, Sales API PR #9 and Amaranta PR #24; then cut or move the release tag after Docker validation.
 
 ## 5. Compliance self-check
 - [x] Conventional Commits - `fix(gateway)` and `docs(c3)` evidence linked above
@@ -58,6 +58,8 @@
 - [Amaranta PR #24: C3 operational evidence](https://github.com/BrandowC/amaranta/pull/24)
 - [Sales DB PR #6: transactional outbox schema](https://github.com/code-corhuila/amaranta-shop-sales-db/pull/6)
 - [Sales API PR #7: transactional OrderCreated persistence](https://github.com/code-corhuila/amaranta-shop-sales-api/pull/7)
+- [Sales DB PR #8: transactional outbox main release](https://github.com/code-corhuila/amaranta-shop-sales-db/pull/8)
+- [Sales API PR #9: outbox publisher main release](https://github.com/code-corhuila/amaranta-shop-sales-api/pull/9)
 - [Infrastructure PR #12: RabbitMQ runtime](https://github.com/code-corhuila/amaranta-shop-infra-postgres/pull/12)
 - [Infrastructure PR #13: RabbitMQ QA promotion](https://github.com/code-corhuila/amaranta-shop-infra-postgres/pull/13)
 - [Infrastructure PR #14: RabbitMQ main release](https://github.com/code-corhuila/amaranta-shop-infra-postgres/pull/14)
